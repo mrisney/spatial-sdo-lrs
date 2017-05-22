@@ -1,8 +1,0 @@
-CREATE OR REPLACE PACKAGE sdo_lrs AS
-
-  FUNCTION get_fullname(n_emp_id NUMBER)
-    RETURN VARCHAR2;
-  -- get employee's salary
-  FUNCTION get_salary(n_emp_id NUMBER)
-    RETURN NUMBER;
-END personnel;
