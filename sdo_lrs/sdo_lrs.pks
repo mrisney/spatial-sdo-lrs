@@ -1,5 +1,6 @@
 CREATE OR replace PACKAGE sdo_lrs
 AS
+
   FUNCTION clip_geom(
     p_lrs_line      IN mdsys.sdo_geometry,
     p_current_start IN NUMBER,
@@ -29,5 +30,26 @@ AS
     unit         IN VARCHAR2 DEFAULT NULL
   /* NO OFFSET AS IS FUNCTION */ )
   RETURN mdsys.sdo_geometry deterministic;
+
+  /**
+  * Snap Point to Line
+  */
+  FUNCTION snap(
+    p_geometry  IN mdsys.sdo_geometry,
+    p_point     IN mdsys.sdo_geometry,
+    p_tolerance IN NUMBER DEFAULT 0.005,
+    p_unit      IN VARCHAR2 DEFAULT NULL,
+    p_exception IN PLS_INTEGER DEFAULT 0)
+  RETURN mdsys.sdo_geometry;
+
+  PROCEDURE split(
+    p_geometry  IN mdsys.sdo_geometry,
+    p_point     IN mdsys.sdo_geometry,
+    p_tolerance IN NUMBER DEFAULT 0.005,
+    p_out_geom1 OUT nocopy mdsys.sdo_geometry,
+    p_out_geom2 OUT nocopy mdsys.sdo_geometry,
+    p_snap      IN PLS_INTEGER DEFAULT 0,
+    p_unit      IN VARCHAR2 DEFAULT NULL,
+    p_exception IN PLS_INTEGER DEFAULT 0);
 
 END sdo_lrs;
